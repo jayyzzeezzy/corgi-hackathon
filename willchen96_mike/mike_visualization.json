@@ -1,0 +1,192 @@
+{
+  "nodes": [
+    {
+      "id": "repo",
+      "label": "willchen96/mike",
+      "type": "repo",
+      "status": "neutral"
+    },
+    {
+      "id": "1_Understanding",
+      "label": "1: Understanding",
+      "type": "phase",
+      "status": "neutral"
+    },
+    {
+      "id": "finding_0",
+      "label": "File inventory complete",
+      "type": "finding",
+      "status": "green",
+      "full_title": "File inventory complete",
+      "recommendation": "Repository has measurable scope"
+    },
+    {
+      "id": "finding_1",
+      "label": "No formal dependency file found",
+      "type": "finding",
+      "status": "yellow",
+      "full_title": "No formal dependency file found",
+      "recommendation": "Add package.json, requirements.txt, or equivalent"
+    },
+    {
+      "id": "finding_2",
+      "label": "Core functionality mapped",
+      "type": "finding",
+      "status": "green",
+      "full_title": "Core functionality mapped",
+      "recommendation": "Tech stack identified for targeted analysis"
+    },
+    {
+      "id": "2_Structural",
+      "label": "2: Structural",
+      "type": "phase",
+      "status": "neutral"
+    },
+    {
+      "id": "finding_3",
+      "label": "Source/test organization could be cleare",
+      "type": "finding",
+      "status": "yellow",
+      "full_title": "Source/test organization could be clearer",
+      "recommendation": "Organize code into src/, test/, and config/ directories"
+    },
+    {
+      "id": "3_Quality",
+      "label": "3: Quality",
+      "type": "phase",
+      "status": "neutral"
+    },
+    {
+      "id": "finding_4",
+      "label": "Documentation present (README)",
+      "type": "finding",
+      "status": "green",
+      "full_title": "Documentation present (README)",
+      "recommendation": "Keep README updated with changes"
+    },
+    {
+      "id": "finding_5",
+      "label": "No code style configuration found",
+      "type": "finding",
+      "status": "yellow",
+      "full_title": "No code style configuration found",
+      "recommendation": "Add .eslintrc, pylintrc, or similar style configuration"
+    },
+    {
+      "id": "finding_6",
+      "label": "No testing configuration found",
+      "type": "finding",
+      "status": "red",
+      "full_title": "No testing configuration found",
+      "recommendation": "Set up Jest, pytest, Mocha, or similar test framework"
+    },
+    {
+      "id": "finding_7",
+      "label": "Large source files detected (1 files > 1",
+      "type": "finding",
+      "status": "yellow",
+      "full_title": "Large source files detected (1 files > 10KB)",
+      "recommendation": "Consider breaking large files into smaller, focused modules"
+    },
+    {
+      "id": "4_Security",
+      "label": "4: Security",
+      "type": "phase",
+      "status": "neutral"
+    },
+    {
+      "id": "finding_8",
+      "label": "No environment configuration pattern det",
+      "type": "finding",
+      "status": "yellow",
+      "full_title": "No environment configuration pattern detected",
+      "recommendation": "Create .env.example for configuration template"
+    },
+    {
+      "id": "finding_9",
+      "label": ".gitignore configured",
+      "type": "finding",
+      "status": "green",
+      "full_title": ".gitignore configured",
+      "recommendation": "Ensure .gitignore includes: .env, node_modules, __pycache__, .venv"
+    },
+    {
+      "id": "finding_10",
+      "label": "No automated security scanning detected",
+      "type": "finding",
+      "status": "yellow",
+      "full_title": "No automated security scanning detected",
+      "recommendation": "Enable Dependabot or Snyk for automated vulnerability scanning"
+    }
+  ],
+  "links": [
+    {
+      "source": "repo",
+      "target": "1_Understanding"
+    },
+    {
+      "source": "1_Understanding",
+      "target": "finding_0"
+    },
+    {
+      "source": "1_Understanding",
+      "target": "finding_1"
+    },
+    {
+      "source": "1_Understanding",
+      "target": "finding_2"
+    },
+    {
+      "source": "repo",
+      "target": "2_Structural"
+    },
+    {
+      "source": "2_Structural",
+      "target": "finding_3"
+    },
+    {
+      "source": "repo",
+      "target": "3_Quality"
+    },
+    {
+      "source": "3_Quality",
+      "target": "finding_4"
+    },
+    {
+      "source": "3_Quality",
+      "target": "finding_5"
+    },
+    {
+      "source": "3_Quality",
+      "target": "finding_6"
+    },
+    {
+      "source": "3_Quality",
+      "target": "finding_7"
+    },
+    {
+      "source": "repo",
+      "target": "4_Security"
+    },
+    {
+      "source": "4_Security",
+      "target": "finding_8"
+    },
+    {
+      "source": "4_Security",
+      "target": "finding_9"
+    },
+    {
+      "source": "4_Security",
+      "target": "finding_10"
+    }
+  ],
+  "summary": {
+    "total_findings": 11,
+    "status_breakdown": {
+      "green": 4,
+      "yellow": 6,
+      "red": 1
+    }
+  }
+}

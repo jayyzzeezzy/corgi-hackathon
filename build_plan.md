@@ -1,9 +1,5 @@
 This is a complex task that requires analyzing a codebase for various aspects like design quality, redundancy, and security vulnerabilities. Since I cannot directly access a local file system or a remote repository without you providing the code, I will outline a comprehensive, multi-stage plan.
 
-**Please provide the code or a link to the repository you want me to analyze.**
-
-Once you provide the code, I will execute the following plan:
-
 ---
 
 ## 🚀 Codebase Analysis Plan
