@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns
+                           http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key id="label" for="node" attr.name="label" attr.type="string"/>
+  <key id="type" for="node" attr.name="type" attr.type="string"/>
+  <key id="status" for="node" attr.name="status" attr.type="string"/>
+
+  <graph id="G" edgedefault="directed">
+    <node id="repo">
+      <data key="label">willchen96/mike</data>
+      <data key="type">repo</data>
+      <data key="status">neutral</data>
+    </node>
+    <node id="1_Understanding">
+      <data key="label">1: Understanding</data>
+      <data key="type">phase</data>
+      <data key="status">neutral</data>
+    </node>
+    <node id="finding_0">
+      <data key="label">File inventory complete</data>
+      <data key="type">finding</data>
+      <data key="status">green</data>
+    </node>
+    <node id="finding_1">
+      <data key="label">No formal dependency file found</data>
+      <data key="type">finding</data>
+      <data key="status">yellow</data>
+    </node>
+    <node id="finding_2">
+      <data key="label">Core functionality mapped</data>
+      <data key="type">finding</data>
+      <data key="status">green</data>
+    </node>
+    <node id="2_Structural">
+      <data key="label">2: Structural</data>
+      <data key="type">phase</data>
+      <data key="status">neutral</data>
+    </node>
+    <node id="finding_3">
+      <data key="label">Source/test organization could be cleare</data>
+      <data key="type">finding</data>
+      <data key="status">yellow</data>
+    </node>
+    <node id="3_Quality">
+      <data key="label">3: Quality</data>
+      <data key="type">phase</data>
+      <data key="status">neutral</data>
+    </node>
+    <node id="finding_4">
+      <data key="label">Documentation present (README)</data>
+      <data key="type">finding</data>
+      <data key="status">green</data>
+    </node>
+    <node id="finding_5">
+      <data key="label">No code style configuration found</data>
+      <data key="type">finding</data>
+      <data key="status">yellow</data>
+    </node>
+    <node id="finding_6">
+      <data key="label">No testing configuration found</data>
+      <data key="type">finding</data>
+      <data key="status">red</data>
+    </node>
+    <node id="finding_7">
+      <data key="label">Large source files detected (1 files > 1</data>
+      <data key="type">finding</data>
+      <data key="status">yellow</data>
+    </node>
+    <node id="4_Security">
+      <data key="label">4: Security</data>
+      <data key="type">phase</data>
+      <data key="status">neutral</data>
+    </node>
+    <node id="finding_8">
+      <data key="label">No environment configuration pattern det</data>
+      <data key="type">finding</data>
+      <data key="status">yellow</data>
+    </node>
+    <node id="finding_9">
+      <data key="label">.gitignore configured</data>
+      <data key="type">finding</data>
+      <data key="status">green</data>
+    </node>
+    <node id="finding_10">
+      <data key="label">No automated security scanning detected</data>
+      <data key="type">finding</data>
+      <data key="status">yellow</data>
+    </node>
+    <edge id="e0" source="repo" target="1_Understanding"/>
+    <edge id="e1" source="1_Understanding" target="finding_0"/>
+    <edge id="e2" source="1_Understanding" target="finding_1"/>
+    <edge id="e3" source="1_Understanding" target="finding_2"/>
+    <edge id="e4" source="repo" target="2_Structural"/>
+    <edge id="e5" source="2_Structural" target="finding_3"/>
+    <edge id="e6" source="repo" target="3_Quality"/>
+    <edge id="e7" source="3_Quality" target="finding_4"/>
+    <edge id="e8" source="3_Quality" target="finding_5"/>
+    <edge id="e9" source="3_Quality" target="finding_6"/>
+    <edge id="e10" source="3_Quality" target="finding_7"/>
+    <edge id="e11" source="repo" target="4_Security"/>
+    <edge id="e12" source="4_Security" target="finding_8"/>
+    <edge id="e13" source="4_Security" target="finding_9"/>
+    <edge id="e14" source="4_Security" target="finding_10"/>
+  </graph>
+</graphml>

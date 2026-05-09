@@ -1,0 +1,28 @@
+GRAPH SUMMARY
+============================================================
+
+Total Nodes: 16
+Total Edges: 15
+
+Node Types:
+  - finding: 11
+  - phase: 4
+  - repo: 1
+
+Node Statuses:
+  - green: 4
+  - neutral: 5
+  - red: 1
+  - yellow: 6
+
+Top 10 Connected Nodes:
+  - 3: Quality: 5 connections
+  - willchen96/mike: 4 connections
+  - 1: Understanding: 4 connections
+  - 4: Security: 4 connections
+  - 2: Structural: 2 connections
+  - File inventory complete: 1 connections
+  - No formal dependency file found: 1 connections
+  - Core functionality mapped: 1 connections
+  - Source/test organization could be cleare: 1 connections
+  - Documentation present (README): 1 connections

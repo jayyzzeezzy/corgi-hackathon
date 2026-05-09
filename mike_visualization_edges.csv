@@ -1,0 +1,16 @@
+source,target,source_type,target_type
+repo,1_Understanding,repo,phase
+1_Understanding,finding_0,phase,finding
+1_Understanding,finding_1,phase,finding
+1_Understanding,finding_2,phase,finding
+repo,2_Structural,repo,phase
+2_Structural,finding_3,phase,finding
+repo,3_Quality,repo,phase
+3_Quality,finding_4,phase,finding
+3_Quality,finding_5,phase,finding
+3_Quality,finding_6,phase,finding
+3_Quality,finding_7,phase,finding
+repo,4_Security,repo,phase
+4_Security,finding_8,phase,finding
+4_Security,finding_9,phase,finding
+4_Security,finding_10,phase,finding

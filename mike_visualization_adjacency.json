@@ -1,0 +1,234 @@
+{
+  "repo": {
+    "node": {
+      "id": "repo",
+      "label": "willchen96/mike",
+      "type": "repo",
+      "status": "neutral"
+    },
+    "outgoing": [
+      "1_Understanding",
+      "2_Structural",
+      "3_Quality",
+      "4_Security"
+    ],
+    "incoming": []
+  },
+  "1_Understanding": {
+    "node": {
+      "id": "1_Understanding",
+      "label": "1: Understanding",
+      "type": "phase",
+      "status": "neutral"
+    },
+    "outgoing": [
+      "finding_0",
+      "finding_1",
+      "finding_2"
+    ],
+    "incoming": [
+      "repo"
+    ]
+  },
+  "finding_0": {
+    "node": {
+      "id": "finding_0",
+      "label": "File inventory complete",
+      "type": "finding",
+      "status": "green",
+      "full_title": "File inventory complete",
+      "recommendation": "Repository has measurable scope"
+    },
+    "outgoing": [],
+    "incoming": [
+      "1_Understanding"
+    ]
+  },
+  "finding_1": {
+    "node": {
+      "id": "finding_1",
+      "label": "No formal dependency file found",
+      "type": "finding",
+      "status": "yellow",
+      "full_title": "No formal dependency file found",
+      "recommendation": "Add package.json, requirements.txt, or equivalent"
+    },
+    "outgoing": [],
+    "incoming": [
+      "1_Understanding"
+    ]
+  },
+  "finding_2": {
+    "node": {
+      "id": "finding_2",
+      "label": "Core functionality mapped",
+      "type": "finding",
+      "status": "green",
+      "full_title": "Core functionality mapped",
+      "recommendation": "Tech stack identified for targeted analysis"
+    },
+    "outgoing": [],
+    "incoming": [
+      "1_Understanding"
+    ]
+  },
+  "2_Structural": {
+    "node": {
+      "id": "2_Structural",
+      "label": "2: Structural",
+      "type": "phase",
+      "status": "neutral"
+    },
+    "outgoing": [
+      "finding_3"
+    ],
+    "incoming": [
+      "repo"
+    ]
+  },
+  "finding_3": {
+    "node": {
+      "id": "finding_3",
+      "label": "Source/test organization could be cleare",
+      "type": "finding",
+      "status": "yellow",
+      "full_title": "Source/test organization could be clearer",
+      "recommendation": "Organize code into src/, test/, and config/ directories"
+    },
+    "outgoing": [],
+    "incoming": [
+      "2_Structural"
+    ]
+  },
+  "3_Quality": {
+    "node": {
+      "id": "3_Quality",
+      "label": "3: Quality",
+      "type": "phase",
+      "status": "neutral"
+    },
+    "outgoing": [
+      "finding_4",
+      "finding_5",
+      "finding_6",
+      "finding_7"
+    ],
+    "incoming": [
+      "repo"
+    ]
+  },
+  "finding_4": {
+    "node": {
+      "id": "finding_4",
+      "label": "Documentation present (README)",
+      "type": "finding",
+      "status": "green",
+      "full_title": "Documentation present (README)",
+      "recommendation": "Keep README updated with changes"
+    },
+    "outgoing": [],
+    "incoming": [
+      "3_Quality"
+    ]
+  },
+  "finding_5": {
+    "node": {
+      "id": "finding_5",
+      "label": "No code style configuration found",
+      "type": "finding",
+      "status": "yellow",
+      "full_title": "No code style configuration found",
+      "recommendation": "Add .eslintrc, pylintrc, or similar style configuration"
+    },
+    "outgoing": [],
+    "incoming": [
+      "3_Quality"
+    ]
+  },
+  "finding_6": {
+    "node": {
+      "id": "finding_6",
+      "label": "No testing configuration found",
+      "type": "finding",
+      "status": "red",
+      "full_title": "No testing configuration found",
+      "recommendation": "Set up Jest, pytest, Mocha, or similar test framework"
+    },
+    "outgoing": [],
+    "incoming": [
+      "3_Quality"
+    ]
+  },
+  "finding_7": {
+    "node": {
+      "id": "finding_7",
+      "label": "Large source files detected (1 files > 1",
+      "type": "finding",
+      "status": "yellow",
+      "full_title": "Large source files detected (1 files > 10KB)",
+      "recommendation": "Consider breaking large files into smaller, focused modules"
+    },
+    "outgoing": [],
+    "incoming": [
+      "3_Quality"
+    ]
+  },
+  "4_Security": {
+    "node": {
+      "id": "4_Security",
+      "label": "4: Security",
+      "type": "phase",
+      "status": "neutral"
+    },
+    "outgoing": [
+      "finding_8",
+      "finding_9",
+      "finding_10"
+    ],
+    "incoming": [
+      "repo"
+    ]
+  },
+  "finding_8": {
+    "node": {
+      "id": "finding_8",
+      "label": "No environment configuration pattern det",
+      "type": "finding",
+      "status": "yellow",
+      "full_title": "No environment configuration pattern detected",
+      "recommendation": "Create .env.example for configuration template"
+    },
+    "outgoing": [],
+    "incoming": [
+      "4_Security"
+    ]
+  },
+  "finding_9": {
+    "node": {
+      "id": "finding_9",
+      "label": ".gitignore configured",
+      "type": "finding",
+      "status": "green",
+      "full_title": ".gitignore configured",
+      "recommendation": "Ensure .gitignore includes: .env, node_modules, __pycache__, .venv"
+    },
+    "outgoing": [],
+    "incoming": [
+      "4_Security"
+    ]
+  },
+  "finding_10": {
+    "node": {
+      "id": "finding_10",
+      "label": "No automated security scanning detected",
+      "type": "finding",
+      "status": "yellow",
+      "full_title": "No automated security scanning detected",
+      "recommendation": "Enable Dependabot or Snyk for automated vulnerability scanning"
+    },
+    "outgoing": [],
+    "incoming": [
+      "4_Security"
+    ]
+  }
+}
