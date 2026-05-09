@@ -1,6 +1,8 @@
 import type { GraphData } from '../types/graph'
 
-const API_URL = '/pipeshift-api/api/v0/chat/completions'
+// Dev: use Vite proxy to avoid CORS. Prod: call Pipeshift directly (they support CORS).
+const API_BASE = import.meta.env.DEV ? '/pipeshift-api' : 'https://api.pipeshift.com'
+const API_URL = `${API_BASE}/api/v0/chat/completions`
 const MODEL = 'deepseek-ai/DeepSeek-R1'
 
 const PARSE_SYSTEM_PROMPT = `You are a code architecture analyzer. Given source code, extract its structure and data flows as JSON.
