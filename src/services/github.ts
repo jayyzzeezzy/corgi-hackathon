@@ -1,5 +1,11 @@
 import type { GraphData, GraphNode, GraphEdge, NodeType } from '../types/graph'
 
+export interface RepoGraphResult {
+  graph: GraphData
+  paths: string[]
+  repoName: string
+}
+
 const CODE_EXTENSIONS = new Set(['.ts', '.tsx', '.js', '.jsx', '.mjs', '.cjs', '.py'])
 
 function getExtension(path: string): string {
@@ -60,7 +66,7 @@ function parseImports(content: string, filePath: string, allPaths: string[]): st
   return [...deps]
 }
 
-export async function fetchRepoGraph(repoUrl: string): Promise<GraphData> {
+export async function fetchRepoGraph(repoUrl: string): Promise<RepoGraphResult> {
   const match = repoUrl.match(/github\.com\/([^/]+)\/([^/?\s]+?)(?:\.git|\/|$)/)
   if (!match) throw new Error('Invalid GitHub repo URL — expected github.com/user/repo')
   const [, owner, repo] = match
@@ -141,5 +147,9 @@ export async function fetchRepoGraph(repoUrl: string): Promise<GraphData> {
   const connected = new Set(edges.flatMap((e) => [e.source as string, e.target as string]))
   const filteredNodes = nodes.filter((n) => connected.has(n.id))
 
-  return { nodes: filteredNodes, edges, dataFlows: [] }
+  return {
+    graph: { nodes: filteredNodes, edges, dataFlows: [] },
+    paths: allPaths,
+    repoName: repo,
+  }
 }

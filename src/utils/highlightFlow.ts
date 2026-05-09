@@ -2,23 +2,18 @@ import * as d3 from 'd3'
 import type { DataFlow, GraphEdge, GraphNode } from '../types/graph'
 import { FLOW_COLORS } from '../types/graph'
 
-const DEFAULT_EDGE_STROKE = '#d1d5db'
+const DEFAULT_EDGE_STROKE = '#dde1e8'
 const DEFAULT_EDGE_WIDTH = 1
-const DEFAULT_NODE_RADIUS = 12
+const DEFAULT_EDGE_OPACITY = 0.8
 
 function getNodeId(d: string | GraphNode): string {
   return typeof d === 'object' ? d.id : d
 }
 
-/**
- * Highlights edges connecting consecutive nodes in flow.path and pulses the origin node.
- * Call clearFlow() first if you want to reset any previous highlight.
- *
- * How the UI team should call this:
- *   highlightFlow(selectedFlow, svgRef)
- *
- * svgRef is a React.RefObject<SVGSVGElement> passed into GraphView.
- */
+function baseR(el: SVGCircleElement): number {
+  return +(el.getAttribute('data-base-r') ?? 12)
+}
+
 export function highlightFlow(flow: DataFlow, svgRef: { current: SVGSVGElement | null }): void {
   if (!svgRef.current) return
 
@@ -27,7 +22,6 @@ export function highlightFlow(flow: DataFlow, svgRef: { current: SVGSVGElement |
   const svg = d3.select(svgRef.current)
   const color = FLOW_COLORS[flow.type]
 
-  // Build set of directed and undirected edge pairs from the flow path
   const pairs = new Set(
     flow.path.slice(0, -1).map((_, i) => `${flow.path[i]}::${flow.path[i + 1]}`)
   )
@@ -35,7 +29,6 @@ export function highlightFlow(flow: DataFlow, svgRef: { current: SVGSVGElement |
   svg.selectAll<SVGLineElement, GraphEdge>('.edge').each(function (d) {
     const src = getNodeId(d.source)
     const tgt = getNodeId(d.target)
-
     if (pairs.has(`${src}::${tgt}`) || pairs.has(`${tgt}::${src}`)) {
       d3.select(this)
         .attr('stroke', color)
@@ -44,37 +37,69 @@ export function highlightFlow(flow: DataFlow, svgRef: { current: SVGSVGElement |
     }
   })
 
-  // Pulse the origin node: grow then settle slightly larger to keep it visible
-  svg
-    .selectAll<SVGCircleElement, GraphNode>('.node')
+  svg.selectAll<SVGCircleElement, GraphNode>('.node')
     .filter((d) => d.id === flow.origin)
-    .transition().duration(200)
-    .attr('r', 20)
-    .transition().duration(200)
-    .attr('r', 16)
-    .transition().duration(150)
-    .attr('r', 18)
+    .each(function () {
+      const r = baseR(this)
+      d3.select(this)
+        .transition().duration(200).attr('r', r + 8)
+        .transition().duration(200).attr('r', r + 3)
+        .transition().duration(150).attr('r', r + 5)
+    })
 }
 
-/**
- * Resets all edges and nodes to their default D3 styles.
- *
- * How the UI team should call this:
- *   clearFlow(svgRef)
- */
-export function clearFlow(svgRef: { current: SVGSVGElement | null }): void {
+export function highlightStep(
+  nodeId: string,
+  prevNodeId: string | null,
+  visited: Set<string>,
+  svgRef: { current: SVGSVGElement | null },
+): void {
   if (!svgRef.current) return
-
   const svg = d3.select(svgRef.current)
 
-  svg
-    .selectAll('.edge')
+  svg.selectAll<SVGCircleElement, GraphNode>('.node')
+    .attr('fill', (d) => {
+      if (d.id === nodeId) return '#111827'
+      if (visited.has(d.id)) return '#94a3b8'
+      return '#e4e4e7'
+    })
+    .attr('opacity', (d) => {
+      if (d.id === nodeId) return 1
+      if (visited.has(d.id)) return 0.8
+      return 0.28
+    })
+    .each(function (d) {
+      const r = baseR(this)
+      d3.select(this).attr('r', d.id === nodeId ? r + 4 : r)
+    })
+    .attr('stroke', (d) => (d.id === nodeId ? '#374151' : 'white'))
+    .attr('stroke-width', (d) => (d.id === nodeId ? 2.5 : 2))
+
+  svg.selectAll<SVGLineElement, GraphEdge>('.edge').each(function (d) {
+    const src = getNodeId(d.source)
+    const tgt = getNodeId(d.target)
+    const isActive = src === prevNodeId && tgt === nodeId
+    const isVisited = visited.has(src) && visited.has(tgt)
+
+    d3.select(this)
+      .attr('stroke', isActive ? '#334155' : isVisited ? '#94a3b8' : '#e4e4e7')
+      .attr('stroke-width', isActive ? 2 : 1)
+      .attr('opacity', isActive ? 1 : isVisited ? 0.55 : 0.1)
+  })
+}
+
+export function clearFlow(svgRef: { current: SVGSVGElement | null }): void {
+  if (!svgRef.current) return
+  const svg = d3.select(svgRef.current)
+
+  svg.selectAll('.edge')
     .attr('stroke', DEFAULT_EDGE_STROKE)
     .attr('stroke-width', DEFAULT_EDGE_WIDTH)
     .attr('stroke-dasharray', null)
+    .attr('opacity', DEFAULT_EDGE_OPACITY)
 
-  svg
-    .selectAll<SVGCircleElement, GraphNode>('.node')
+  svg.selectAll<SVGCircleElement, GraphNode>('.node')
     .transition().duration(150)
-    .attr('r', DEFAULT_NODE_RADIUS)
+    .attr('r', function () { return baseR(this) })
+    .attr('opacity', 1)
 }
