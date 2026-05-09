@@ -20,6 +20,22 @@ export default function GraphView({ data, svgRef, onNodeClick }: Props) {
     svg.selectAll('*').remove()
     svg.attr('width', width).attr('height', height)
 
+    const NODE_RADIUS = 12
+    const ARROW_OFFSET = NODE_RADIUS + 2 // stop line just outside the circle
+
+    // Arrowhead marker
+    svg.append('defs').append('marker')
+      .attr('id', 'arrow')
+      .attr('viewBox', '0 0 10 10')
+      .attr('refX', 10)
+      .attr('refY', 5)
+      .attr('markerWidth', 6)
+      .attr('markerHeight', 6)
+      .attr('orient', 'auto')
+      .append('path')
+      .attr('d', 'M 0 0 L 10 5 L 0 10 z')
+      .attr('fill', '#9ca3af')
+
     const g = svg.append('g')
 
     svg.call(
@@ -54,6 +70,7 @@ export default function GraphView({ data, svgRef, onNodeClick }: Props) {
       .attr('class', 'edge')
       .attr('stroke', '#d1d5db')
       .attr('stroke-width', 1)
+      .attr('marker-end', 'url(#arrow)')
 
     // Draw node groups
     const nodeGroup = g
@@ -106,8 +123,22 @@ export default function GraphView({ data, svgRef, onNodeClick }: Props) {
       link
         .attr('x1', (d) => (d.source as GraphNode).x ?? 0)
         .attr('y1', (d) => (d.source as GraphNode).y ?? 0)
-        .attr('x2', (d) => (d.target as GraphNode).x ?? 0)
-        .attr('y2', (d) => (d.target as GraphNode).y ?? 0)
+        .attr('x2', (d) => {
+          const s = d.source as GraphNode
+          const t = d.target as GraphNode
+          const dx = (t.x ?? 0) - (s.x ?? 0)
+          const dy = (t.y ?? 0) - (s.y ?? 0)
+          const dist = Math.sqrt(dx * dx + dy * dy)
+          return dist ? (t.x ?? 0) - (dx / dist) * ARROW_OFFSET : (t.x ?? 0)
+        })
+        .attr('y2', (d) => {
+          const s = d.source as GraphNode
+          const t = d.target as GraphNode
+          const dx = (t.x ?? 0) - (s.x ?? 0)
+          const dy = (t.y ?? 0) - (s.y ?? 0)
+          const dist = Math.sqrt(dx * dx + dy * dy)
+          return dist ? (t.y ?? 0) - (dy / dist) * ARROW_OFFSET : (t.y ?? 0)
+        })
 
       nodeGroup.attr('transform', (d) => `translate(${d.x ?? 0},${d.y ?? 0})`)
     })

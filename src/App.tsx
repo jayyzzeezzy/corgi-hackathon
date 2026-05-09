@@ -4,6 +4,7 @@ import { FLOW_COLORS } from './types/graph'
 import GraphView from './components/GraphView'
 import NodeSidebar from './components/NodeSidebar'
 import { parseCode, explainNode } from './services/pipeshift'
+import { fetchRepoGraph } from './services/github'
 import { highlightFlow, clearFlow } from './utils/highlightFlow'
 
 function toRawGitHubUrl(url: string): string {
@@ -31,13 +32,25 @@ export default function App() {
     if (!url) return
     setGithubLoading(true)
     setError('')
+
+    const isFileUrl = url.includes('/blob/')
+
     try {
-      const rawUrl = toRawGitHubUrl(url)
-      const res = await fetch(rawUrl)
-      if (!res.ok) throw new Error(`GitHub fetch failed (${res.status}) — make sure the file is public`)
-      const text = await res.text()
-      setCode(text)
-      setGithubUrl('')
+      if (isFileUrl) {
+        // Single file → load into textarea
+        const rawUrl = toRawGitHubUrl(url)
+        const res = await fetch(rawUrl)
+        if (!res.ok) throw new Error(`GitHub fetch failed (${res.status}) — make sure the file is public`)
+        setCode(await res.text())
+        setGithubUrl('')
+      } else {
+        // Whole repo → build file dependency graph directly
+        setGraphData(null)
+        setSelectedNode(null)
+        const data = await fetchRepoGraph(url)
+        setGraphData(data)
+        setGithubUrl('')
+      }
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Failed to fetch from GitHub')
     } finally {
@@ -154,7 +167,7 @@ export default function App() {
                 value={githubUrl}
                 onChange={(e) => setGithubUrl(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleFetchGitHub()}
-                placeholder="github.com/user/repo/blob/main/file.ts"
+                placeholder="github.com/user/repo  or  …/blob/main/file.ts"
                 style={{
                   flex: 1,
                   padding: '7px 10px',
