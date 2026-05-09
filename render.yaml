@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: codebase-cartographer
+    env: static
+    buildCommand: npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_PIPESHIFT_API_KEY
+        sync: false
